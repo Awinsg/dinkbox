@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Schedule - Dink Box</title>
+
+<link rel="stylesheet" href="schedule.css">
+
+<link rel="stylesheet" href="responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="logo">DINK BOX</a>
+
+<nav>
+
+    <a href="courts.html">Courts</a>
+
+    <a href="schedule.html">Schedule</a>
+
+    <a href="track.html">View Booking</a>
+
+    <a href="about.html">About</a>
+
+    <a href="login.html">Login</a>
+
+</nav>
+
+</header>
+
+<section class="page-title">
+
+<h1>COURT SCHEDULE</h1>
+
+<p>Check the availability of our pickleball courts.</p>
+
+</section>
+
+<div class="schedule-box">
+
+<div class="date-box">
+
+<label for="date">Select Date:</label>
+
+<input type="date" id="date">
+
+</div>
+
+<div class="filter-box">
+
+<label for="courtFilter">Show:</label>
+
+<select id="courtFilter" onchange="filterCourt(this.value)">
+
+<option value="all" selected>All Courts</option>
+
+<optgroup label="Courts">
+<option value="1">Court 1</option>
+<option value="2">Court 2</option>
+<option value="3">Court 3</option>
+</optgroup>
+
+</select>
+
+</div>
+
+<table id="scheduleTable"></table>
+
+<div class="legend">
+
+<span>
+<span class="legend-box green"></span>
+Available
+</span>
+
+<span>
+<span class="legend-box red"></span>
+Booked
+</span>
+
+</div>
+
+<a href="booking.html" class="booking-button">
+BOOK A COURT
+</a>
+
+</div>
+
+<button type="button" class="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="Back to top">↑</button>
+
+<footer>
+
+<p>© 2026 Dink Box. All rights reserved.</p>
+
+</footer>
+
+<script src="bookings.js"></script>
+<script src="auth.js"></script>
+
+<script>
+
+const courtNames = ["Court 1", "Court 2", "Court 3"];
+
+function formatTime(minutes) {
+
+    let hour = Math.floor(minutes / 60);
+    let minute = minutes % 60;
+    let period = hour >= 12 ? "PM" : "AM";
+    let displayHour = hour % 12;
+
+    if (displayHour === 0) {
+        displayHour = 12;
+    }
+
+    return displayHour + ":" + String(minute).padStart(2, "0") + " " + period;
+}
+
+function todayString() {
+
+    let now = new Date();
+
+    return now.getFullYear() + "-" +
+        String(now.getMonth() + 1).padStart(2, "0") + "-" +
+        String(now.getDate()).padStart(2, "0");
+}
+
+function renderSchedule() {
+
+    let dateInput = document.getElementById("date");
+
+    if (!dateInput.value) {
+        dateInput.value = todayString();
+    }
+
+    let date = dateInput.value;
+
+    let html = "<tr><th>Time</th>";
+
+    courtNames.forEach(function(name) {
+        html += "<th>" + name + "</th>";
+    });
+
+    html += "</tr>";
+
+    for (let start = 8 * 60; start + 30 <= 17 * 60; start += 30) {
+
+        html += "<tr><td>" + formatTime(start) + " - " + formatTime(start + 30) + "</td>";
+
+        courtNames.forEach(function(name) {
+
+            if (isSlotBooked(date, name, start)) {
+                html += "<td class='booked'>Booked</td>";
+            } else {
+                html += "<td class='available'>Available</td>";
+            }
+
+        });
+
+        html += "</tr>";
+    }
+
+    document.getElementById("scheduleTable").innerHTML = html;
+
+    filterCourt(document.getElementById("courtFilter").value);
+}
+
+function filterCourt(value) {
+
+    let rows = document.querySelectorAll("#scheduleTable tr");
+
+    rows.forEach(function(row) {
+
+        let cells = row.children;
+
+        for (let i = 1; i < cells.length; i++) {
+
+            cells[i].style.display =
+                (value === "all" || i === Number(value)) ? "" : "none";
+
+        }
+
+    });
+
+}
+
+let dateInput = document.getElementById("date");
+dateInput.min = todayString();
+dateInput.value = todayString();
+dateInput.addEventListener("change", renderSchedule);
+
+renderSchedule();
+
+</script>
+
+<script src="reset-timer.js"></script>
+
+</body>
+
+</html>

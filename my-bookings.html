@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dink Box | My Bookings</title>
+
+<link rel="stylesheet" href="track.css">
+<link rel="stylesheet" href="long-page.css">
+
+<style>
+.booking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    background-color: #edf5e0;
+    border-radius: 15px;
+}
+.booking-item.past { background-color: #f0f0f0; color: #777; }
+.booking-item h3 { margin: 0 0 4px; }
+.booking-item p { margin: 0; font-size: 14px; color: #555; }
+.booking-item .item-code { font-weight: bold; letter-spacing: 1px; color: #173f35; }
+.booking-item .view-link {
+    padding: 10px 20px;
+    background-color: #173f35;
+    color: white;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+.booking-item .view-link:hover { background-color: #24594c; }
+.group-title { margin: 30px 0 14px; font-size: 18px; }
+.empty { color: #666; }
+.empty a { color: #173f35; font-weight: bold; }
+</style>
+
+<link rel="stylesheet" href="responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="logo">DINK BOX</a>
+
+<nav>
+    <a href="courts.html">Courts</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="track.html">View Booking</a>
+    <a href="about.html">About</a>
+    <a href="login.html">Login</a>
+</nav>
+
+</header>
+
+<div class="track-card">
+
+<h1>My bookings</h1>
+
+<div id="list"></div>
+
+</div>
+
+<footer>
+
+<p>© 2026 Dink Box. All rights reserved.</p>
+
+</footer>
+
+<script src="bookings.js"></script>
+<script src="auth.js"></script>
+
+<script>
+
+function esc(text) {
+    return String(text).replace(/[&<>"']/g, function(c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+}
+
+function friendlyDate(dateString) {
+    return new Date(dateString + "T00:00:00").toLocaleDateString("en-US", {
+        weekday: "short", year: "numeric", month: "long", day: "numeric"
+    });
+}
+
+function isPast(b) {
+    let end = new Date(b.date + "T00:00:00");
+    end.setMinutes(b.endMinutes);
+    return end < new Date();
+}
+
+function card(b) {
+    return "<div class='booking-item" + (isPast(b) ? " past" : "") + "'>" +
+        "<div>" +
+        "<h3>" + esc(b.court) + " &middot; " + esc(friendlyDate(b.date)) + "</h3>" +
+        "<p>" + esc(b.startTime) + " - " + esc(b.endTime) + " &middot; \u20B1" + esc(b.total) + "</p>" +
+        "<p class='item-code'>" + esc(b.code) + "</p>" +
+        "</div>" +
+        "<a class='view-link' href='track.html?code=" + encodeURIComponent(b.code) + "'>View details</a>" +
+        "</div>";
+}
+
+(function() {
+
+    let user = getCurrentUser();
+
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    let mine = getUserBookings(user).sort(function(a, b) {
+        return (a.date + String(a.startMinutes).padStart(4, "0"))
+             .localeCompare(b.date + String(b.startMinutes).padStart(4, "0"));
+    });
+
+    let upcoming = mine.filter(function(b) { return !isPast(b); });
+    let past = mine.filter(isPast).reverse();
+    let html = "";
+
+    if (mine.length === 0) {
+        html = "<p class='empty'>You have no bookings yet. <a href='courts.html'>Reserve a court</a></p>";
+    } else {
+        if (upcoming.length) {
+            html += "<h2 class='group-title'>Upcoming</h2>" + upcoming.map(card).join("");
+        }
+        if (past.length) {
+            html += "<h2 class='group-title'>Past</h2>" + past.map(card).join("");
+        }
+    }
+
+    document.getElementById("list").innerHTML = html;
+
+})();
+
+</script>
+
+<script src="reset-timer.js"></script>
+
+</body>
+
+</html>

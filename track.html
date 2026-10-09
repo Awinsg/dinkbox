@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dink Box | View Your Booking</title>
+
+<link rel="stylesheet" href="track.css">
+<link rel="stylesheet" href="long-page.css">
+
+<link rel="stylesheet" href="responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="logo">DINK BOX</a>
+
+<nav>
+    <a href="courts.html">Courts</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="track.html">View Booking</a>
+    <a href="about.html">About</a>
+    <a href="login.html">Login</a>
+</nav>
+
+</header>
+
+<div class="track-card">
+
+<h1>View your booking</h1>
+
+<form onsubmit="findClicked(event)">
+
+<label for="codeInput">Booking reference code</label>
+
+<input
+    type="text"
+    id="codeInput"
+    placeholder="DB-K7M2QX"
+    maxlength="12"
+    autocomplete="off"
+    oninput="toggleButton()"
+>
+
+<button type="submit" class="find-button" id="findButton" disabled>
+Find booking
+</button>
+
+</form>
+
+<p class="not-found" id="notFound" style="display:none;"></p>
+
+<div id="result"></div>
+
+</div>
+
+<footer>
+
+<p>© 2026 Dink Box. All rights reserved.</p>
+
+</footer>
+
+<script src="bookings.js"></script>
+<script src="auth.js"></script>
+
+<script>
+
+function esc(text) {
+    return String(text).replace(/[&<>"']/g, function(c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+}
+
+function toggleButton() {
+    document.getElementById("findButton").disabled =
+        document.getElementById("codeInput").value.trim() === "";
+}
+
+function friendlyDate(dateString) {
+    return new Date(dateString + "T00:00:00").toLocaleDateString("en-US", {
+        weekday: "short",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+}
+
+function row(label, value, extraClass) {
+    return "<div class='row " + (extraClass || "") + "'><span>" +
+        label + "</span><span>" + esc(value) + "</span></div>";
+}
+
+function showBooking(code) {
+
+    let notFound = document.getElementById("notFound");
+    let result = document.getElementById("result");
+    let booking = findBooking(code);
+
+    result.innerHTML = "";
+    notFound.style.display = "none";
+
+    if (!booking) {
+        notFound.textContent =
+            "We couldn't find a booking with that code in this browser. Please check it and try again.";
+        notFound.style.display = "block";
+        return;
+    }
+
+    let addons = booking.addonLabel && booking.addonLabel !== "None"
+        ? booking.addonLabel + " (+₱" + booking.addonTotal + ")"
+        : "None";
+
+    result.innerHTML =
+        "<div class='result'>" +
+        "<h2>Booking confirmed</h2>" +
+        "<span class='code'>" + esc(booking.code) + "</span>" +
+        row("Name", booking.name) +
+        row("Mobile", booking.mobile) +
+        row("Email", booking.email) +
+        row("Date", friendlyDate(booking.date)) +
+        row("Court", booking.court) +
+        row("Time", booking.startTime + " - " + booking.endTime) +
+        row("Duration", booking.duration + (booking.duration > 1 ? " hours" : " hour")) +
+        row("Add-ons", addons) +
+        (booking.notes && booking.notes.trim() !== ""
+            ? row("Special requests", booking.notes) : "") +
+        row("Payment", booking.payment +
+            (booking.paymentStatus ? " - " + booking.paymentStatus : "")) +
+        (booking.paymentRef ? row("GCash ref. no.", booking.paymentRef) : "") +
+        row("Total", "₱" + booking.total, "total") +
+        "<button type='button' class='cancel-button' onclick=\"cancelClicked('" +
+        esc(booking.code) + "')\">Cancel booking</button>" +
+        "</div>";
+}
+
+function findClicked(event) {
+    event.preventDefault();
+    showBooking(document.getElementById("codeInput").value);
+}
+
+function cancelClicked(code) {
+
+    if (!confirm("Cancel this booking? The court will be open for others to book.")) {
+        return;
+    }
+
+    cancelBooking(code);
+
+    document.getElementById("result").innerHTML = "";
+
+    let notFound = document.getElementById("notFound");
+    notFound.textContent = "Your booking has been cancelled.";
+    notFound.style.display = "block";
+}
+
+// open directly from a link like track.html?code=DB-K7M2QX
+(function() {
+
+    let code = new URLSearchParams(window.location.search).get("code");
+
+    if (code) {
+        document.getElementById("codeInput").value = code;
+        toggleButton();
+        showBooking(code);
+    }
+
+})();
+
+</script>
+
+<script src="reset-timer.js"></script>
+
+</body>
+
+</html>

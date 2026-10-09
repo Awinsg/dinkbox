@@ -1,0 +1,242 @@
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f7f2;
+            color: #222;
+        }
+
+        header {
+            height: 70px;
+            background-color: #173f35;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            color: #d7f34a;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+        }
+
+        nav a:hover {
+            color: #d7f34a;
+        }
+
+        .hero {
+            height: 550px;
+
+            background-image:
+                linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+                url("photo1.png");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            color: white;
+            max-width: 750px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #d7f34a;
+            color: #173f35;
+            padding: 15px 30px;
+            margin: 10px 5px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .section {
+            width: 88%;
+            margin: 70px auto;
+        }
+
+        .section h2 {
+            text-align: center;
+            color: #173f35;
+            font-size: 32px;
+            margin-bottom: 35px;
+        }
+
+        .venue-section {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.venue-info {
+    flex: 1.2;
+}
+
+.venue-label,
+.courts-label {
+    display: block;
+    color: #173f35;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+}
+
+.venue-desc {
+    color: #555;
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.hours-box {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px 25px;
+    background-color: white;
+}
+
+.hours-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    margin: 0 0 12px;
+}
+
+.hours-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #2ecc71;
+    display: inline-block;
+}
+
+.hours-row {
+    display: flex;
+    justify-content: space-between;
+    color: #444;
+}
+
+.courts-panel {
+    flex: 1;
+}
+
+.court-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px 25px;
+    margin-bottom: 18px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.court-row:hover {
+    border-color: #173f35;
+}
+
+.court-row h3 {
+    margin: 0 0 4px;
+    color: #173f35;
+}
+
+.court-row .court-type {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+}
+
+.court-row .court-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #173f35;
+}
+
+.court-row .court-price span {
+    font-size: 13px;
+    font-weight: normal;
+    color: #777;
+}
+
+footer {
+            background-color: #173f35;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 70px;
+        }
+
+.promo-banner {
+    background-color: #173f35;
+    background-image: url('pickleball.png');
+    background-repeat: repeat-x;
+    background-size: 22px;
+    background-position: left center;
+    background-blend-mode: luminosity;
+    color: #d7f34a;
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.audio-box {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px 25px;
+    text-align: center;
+}
+
+.audio-box p {
+    margin: 0 0 12px;
+    color: #555;
+    font-weight: bold;
+}
+
+.audio-box audio {
+    width: 100%;
+    max-width: 400px;
+}

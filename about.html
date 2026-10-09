@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dink Box | About</title>
+
+<link rel="stylesheet" href="about.css">
+
+<link rel="stylesheet" href="responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="logo">DINK BOX</a>
+
+<nav>
+
+    <a href="courts.html">Courts</a>
+
+    <a href="schedule.html">Schedule</a>
+
+    <a href="track.html">View Booking</a>
+
+    <a href="about.html">About</a>
+
+    <a href="login.html">Login</a>
+
+</nav>
+
+</header>
+
+<section class="page-title">
+
+<h1>ABOUT DINK BOX</h1>
+
+<p>Your place to play, book, and enjoy pickleball.</p>
+
+</section>
+
+<div class="about-box">
+
+<figure>
+<img src="photo1.png" class="about-image" alt="Dink Box indoor courts">
+<figcaption>Our indoor courts at Dink Box</figcaption>
+</figure>
+
+<h2>Who We Are</h2>
+
+<p>
+<ruby>Dink<rt>dingk</rt></ruby> Box is a pickleball court reservation system designed
+to make booking a court simple and convenient. Players can
+check court availability, choose a schedule, and reserve
+their preferred court.
+</p>
+
+<h2>Our Goal</h2>
+
+<p>
+Our goal is to provide players with an easy way to find and
+reserve pickleball courts without having to go through a
+complicated booking process.
+</p>
+
+<div class="mission">
+
+<h2>Our Mission</h2>
+
+<p>
+Dink Box aims to make pickleball more accessible by providing
+a simple and organized court reservation experience for
+players.
+</p>
+
+</div>
+
+</div>
+
+<div class="about-box contact-box">
+
+<h2>Contact Us</h2>
+
+<p>Have a question or suggestion? Send us a message.</p>
+
+<form method="post" action="#" onsubmit="return thanks(event)">
+
+<label for="contactName">Name</label>
+<input type="text" id="contactName" name="contactName" placeholder="Your name" required>
+
+<label for="contactEmail">Email</label>
+<input type="email" id="contactEmail" name="contactEmail" placeholder="you@example.com" required>
+
+<label for="contactMessage">Message</label>
+<textarea id="contactMessage" name="contactMessage" placeholder="Write your message here..." required></textarea>
+
+<button type="submit" class="send-button">SEND MESSAGE</button>
+
+</form>
+
+<p class="mailto-note">
+Prefer email? Reach us directly at
+<a href="mailto:gonzalesaldrin016@gmail.com">gonzalesaldrin016@gmail.com</a>.
+</p>
+
+</div>
+
+<div class="about-box pdf-section">
+
+<h2>House Rules &amp; Waiver</h2>
+
+<p>Please review our court rules and liability waiver before your first booking.</p>
+
+<embed src="house-rules.pdf" type="application/pdf">
+
+<a href="house-rules.pdf" class="pdf-download" download>⬇ Download House Rules PDF</a>
+
+</div>
+
+<div class="about-box map-section">
+
+<h2>Find Us</h2>
+
+<iframe src="https://www.google.com/maps?q=Brgy.+Gonzales,+Tanauan+City,+Batangas&output=embed" loading="lazy" allowfullscreen></iframe>
+
+</div>
+
+<footer>
+
+<p>© 2026 Dink Box. All rights reserved.</p>
+
+</footer>
+
+<script>
+
+function thanks(event) {
+
+    event.preventDefault();
+
+    alert("Thanks for your message! We'll get back to you soon.");
+
+    event.target.reset();
+
+    return false;
+}
+
+</script>
+
+<script src="bookings.js"></script>
+<script src="auth.js"></script>
+<script src="reset-timer.js"></script>
+
+</body>
+
+</html>

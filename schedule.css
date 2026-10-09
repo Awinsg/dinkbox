@@ -1,0 +1,214 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f5f5;
+    color: #173f35;
+}
+
+header {
+    height: 70px;
+    background-color: #173f35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #d7f34a;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
+nav a:hover {
+    color: #d7f34a;
+}
+
+.page-title {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+.page-title h1 {
+    font-size: 40px;
+    margin: 0 0 10px 0;
+}
+
+.page-title p {
+    color: #666;
+    margin: 0;
+}
+
+.schedule-box {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    overflow-x: auto;
+}
+
+.date-box {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.date-box label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.date-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th {
+    background-color: #173f35;
+    color: white;
+    padding: 15px;
+}
+
+td {
+    padding: 14px;
+    border: 1px solid #ddd;
+}
+
+.available {
+    background-color: #e9f8d0;
+    color: #28720f;
+    font-weight: bold;
+}
+
+.booked {
+    background-color: #f1dede;
+    color: #9b2c2c;
+    font-weight: bold;
+}
+
+.legend {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.legend span {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.legend-box {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.green {
+    background-color: #e9f8d0;
+}
+
+.red {
+    background-color: #f1dede;
+}
+
+.booking-button {
+    display: block;
+    width: 220px;
+    margin: 30px auto 0;
+    padding: 14px;
+    background-color: #d7f34a;
+    color: #173f35;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.booking-button:hover {
+    background-color: #c5df35;
+}
+
+footer {
+    background-color: #173f35;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+}
+
+.filter-box {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filter-box label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-box select {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.date-box input:focus,
+.filter-box select:focus {
+    outline: 3px solid #d7f34a;
+    border-color: #173f35;
+}
+
+td.hidden-col,
+th.hidden-col {
+    display: none;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #173f35;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    z-index: 10;
+}
+
+.back-to-top:hover {
+    background-color: #24594c;
+}

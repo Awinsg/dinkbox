@@ -1,0 +1,199 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #173f35;
+}
+
+header {
+    height: 70px;
+    background-color: #173f35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #d7f34a;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
+nav a:hover {
+    color: #d7f34a;
+}
+
+.page-title {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+.page-title h1 {
+    font-size: 40px;
+    margin: 0 0 10px;
+}
+
+.page-title p {
+    color: #666;
+}
+
+.court-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+
+.court-card {
+    background-color: white;
+    width: 33.33%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.court-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.court-info {
+    padding: 25px;
+    text-align: center;
+}
+
+.court-info h2 {
+    margin-top: 0;
+}
+
+.court-info p {
+    color: #666;
+}
+
+.status {
+    color: #28720f !important;
+    font-weight: bold;
+}
+
+.price {
+    color: #173f35 !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.reserve-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 13px 25px;
+    background-color: #d7f34a;
+    color: #173f35;
+    text-decoration: none;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.reserve-button:hover {
+    background-color: #c5df35;
+}
+
+footer {
+    background-color: #173f35;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+}
+
+.promo-banner {
+    background-color: #173f35;
+    background-image: url('pickleball.png');
+    background-repeat: repeat-x;
+    background-size: 22px;
+    background-position: left center;
+    background-blend-mode: luminosity;
+    color: #d7f34a;
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.search-bar {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.search-bar input:focus {
+    outline: 3px solid #d7f34a;
+    border-color: #173f35;
+}
+
+.court-card {
+    position: relative;
+}
+
+.sale-badge {
+    position: absolute;
+    top: 12px;
+    right: -32px;
+    background-color: #d7f34a;
+    color: #173f35;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 35px;
+    transform: rotate(45deg);
+    z-index: 5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.price del {
+    color: #999;
+    font-size: 15px;
+    font-weight: normal;
+    margin-right: 6px;
+}
+
+.price ins {
+    text-decoration: none;
+    color: #173f35;
+}
+
+.reserve-button .btn-logo {
+    display: inline-block;
+    margin-right: 6px;
+}

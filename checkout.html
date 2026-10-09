@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dink Box | Checkout</title>
+
+<link rel="stylesheet" href="checkout.css">
+<link rel="stylesheet" href="booking-extras.css">
+
+<link rel="stylesheet" href="responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="logo">DINK BOX</a>
+
+<nav>
+
+    <a href="courts.html">Courts</a>
+
+    <a href="schedule.html">Schedule</a>
+
+    <a href="track.html">View Booking</a>
+
+    <a href="about.html">About</a>
+
+    <a href="login.html">Login</a>
+
+</nav>
+
+</header>
+
+<section class="page-title">
+
+<h1>CHECKOUT</h1>
+
+<p>Review your booking before confirming.</p>
+
+</section>
+
+<div class="checkout-box info-box">
+
+<div class="info-header">
+
+<div>
+<h2>Your information</h2>
+<p class="info-sub">We'll use this to confirm your booking.</p>
+</div>
+
+<div class="timer-pill">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 14"></polyline></svg>
+<span id="timerText">15:00 remaining</span>
+</div>
+
+</div>
+
+<label for="mobile">Mobile number <span class="req">*</span></label>
+<input type="tel" id="mobile" placeholder="09XXXXXXXXX" maxlength="11" inputmode="numeric" autocomplete="tel">
+<span class="field-error" id="mobileError"></span>
+
+<label for="fullName">Full name <span class="req">*</span></label>
+<input type="text" id="fullName" placeholder="Juan Dela Cruz" autocomplete="name">
+<span class="field-error" id="fullNameError"></span>
+
+<label for="emailAddress">Email address <span class="req">*</span></label>
+<input type="email" id="emailAddress" placeholder="you@example.com" autocomplete="email">
+<span class="field-error" id="emailError"></span>
+
+</div>
+
+<div class="checkout-box">
+
+<div class="summary">
+
+<h2>Booking Summary</h2>
+
+<p>
+<strong>Date:</strong>
+<span id="date">-</span>
+</p>
+
+<p>
+<strong>Court:</strong>
+<span id="court">-</span>
+</p>
+
+<p>
+<strong>Start Time:</strong>
+<span id="startTime">-</span>
+</p>
+
+<p>
+<strong>Duration:</strong>
+<span id="duration">-</span>
+</p>
+
+<p>
+<strong>End Time:</strong>
+<span id="endTime">-</span>
+</p>
+
+<p>
+<strong>Add-ons:</strong>
+<span id="addons">-</span>
+</p>
+
+<p id="notesRow" class="notes-row" style="display:none;">
+<strong>Special Requests:</strong>
+<span id="notes">-</span>
+</p>
+
+<p>
+<strong>Total:</strong>
+₱<span id="total">0.00</span>
+</p>
+
+</div>
+
+<h2 class="payment-title">
+Payment Method
+</h2>
+
+<fieldset class="payment-fieldset">
+
+<legend>Choose how you'd like to pay</legend>
+
+<label class="payment-option">
+
+<input
+    type="radio"
+    name="payment"
+    value="GCash"
+    checked
+>
+
+<span class="btn-logo">G</span>GCash
+
+</label>
+
+</fieldset>
+
+<div class="gcash-panel">
+
+<h3>Pay with GCash</h3>
+
+<ol>
+<li>Open your GCash app and tap <strong>Send Money</strong>.</li>
+<li>Send exactly <strong>₱<span id="gcashAmount">0.00</span></strong> to the account below.</li>
+<li>Copy the <strong>Reference No.</strong> from your receipt and enter it here.</li>
+</ol>
+
+<div class="gcash-details">
+
+<img id="gcashQr" src="gcash-qr.png" alt="GCash QR code" onerror="this.style.display='none'">
+
+<div>
+<p>Account name<br><strong id="gcashName"></strong></p>
+<p>GCash number<br><strong id="gcashNumber"></strong></p>
+</div>
+
+</div>
+
+<label for="gcashRef">GCash reference number <span class="req">*</span></label>
+<input type="text" id="gcashRef" placeholder="e.g. 1234567890123" inputmode="numeric" maxlength="15" autocomplete="off">
+<span class="field-error" id="gcashRefError"></span>
+
+<p class="gcash-note">Your booking is held as <strong>Pending</strong> until we confirm your payment.</p>
+
+</div>
+
+<button
+    type="button"
+    class="confirm-button"
+    onclick="confirmBooking()"
+>
+CONFIRM BOOKING
+</button>
+
+<a href="booking.html" class="back-button">
+← Back to Booking
+</a>
+
+</div>
+
+<footer>
+
+<p>© 2026 Dink Box. All rights reserved.</p>
+
+</footer>
+
+<script src="bookings.js"></script>
+<script src="auth.js"></script>
+<script src="timer.js"></script>
+
+<script>
+
+startCountdown("timerText", false);
+
+const GCASH_NAME = "Aldrin Gonzales";
+const GCASH_NUMBER = "0945 168 6221";
+
+document.getElementById("gcashName").textContent = GCASH_NAME;
+document.getElementById("gcashNumber").textContent = GCASH_NUMBER;
+
+document.getElementById("gcashRef").addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "");
+});
+
+document.getElementById("mobile").addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "");
+});
+
+let booking =
+    JSON.parse(
+        localStorage.getItem("dinkBoxBooking")
+    );
+
+if (booking) {
+
+    document.getElementById("date").textContent =
+        new Date(booking.date + "T00:00:00").toLocaleDateString("en-US", {
+            weekday: "short",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+
+    document.getElementById("court").textContent =
+        booking.court;
+
+    document.getElementById("startTime").textContent =
+        booking.startTime;
+
+    document.getElementById("duration").textContent =
+        booking.duration +
+        " hour" +
+        (booking.duration > 1 ? "s" : "");
+
+    document.getElementById("endTime").textContent =
+        booking.endTime;
+
+    document.getElementById("addons").textContent =
+        booking.addonLabel && booking.addonLabel !== "None"
+            ? booking.addonLabel + " (+₱" + booking.addonTotal + ")"
+            : "None";
+
+    if (booking.notes && booking.notes.trim() !== "") {
+        document.getElementById("notes").textContent = booking.notes;
+        document.getElementById("notesRow").style.display = "block";
+    }
+
+    document.getElementById("total").textContent =
+        booking.total;
+
+    document.getElementById("gcashAmount").textContent =
+        booking.total;
+
+}
+
+function confirmBooking() {
+
+    let payment =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+    if (!booking) {
+
+        alert(
+            "No booking information found."
+        );
+
+        return;
+
+    }
+
+    let mobile = document.getElementById("mobile");
+    let fullName = document.getElementById("fullName");
+    let email = document.getElementById("emailAddress");
+
+    let gcashRef = document.getElementById("gcashRef");
+    let refValue = gcashRef.value.trim();
+    let refFormatOk = /^\d{10,15}$/.test(refValue);
+    let refUsed = getBookings().some(function(b) {
+        return b.paymentRef === refValue;
+    });
+
+    let fields = [
+        { input: mobile,   error: "mobileError",   ok: /^09\d{9}$/.test(mobile.value.trim()),
+          msg: "Enter an 11-digit mobile number starting with 09." },
+        { input: fullName, error: "fullNameError", ok: fullName.value.trim().length >= 2,
+          msg: "Please enter your full name." },
+        { input: email,    error: "emailError",    ok: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()),
+          msg: "Please enter a valid email address." },
+        { input: gcashRef, error: "gcashRefError", ok: refFormatOk && !refUsed,
+          msg: refFormatOk
+              ? "This reference number was already used for another booking."
+              : "Enter the 10 to 15 digit reference number from your GCash receipt." }
+    ];
+
+    let firstInvalid = null;
+
+    fields.forEach(function(f) {
+        document.getElementById(f.error).textContent = f.ok ? "" : f.msg;
+        f.input.classList.toggle("invalid", !f.ok);
+        if (!f.ok && !firstInvalid) {
+            firstInvalid = f.input;
+        }
+    });
+
+    if (firstInvalid) {
+        firstInvalid.focus();
+        return;
+    }
+
+    if (!payment) {
+
+        alert(
+            "Please select a payment method."
+        );
+
+        return;
+
+    }
+
+    if (booking.startMinutes === undefined) {
+        alert("Please select your time slot again.");
+        window.location.href = "booking.html";
+        return;
+    }
+
+    if (!rangeIsFree(booking.date, booking.court, booking.startMinutes, booking.endMinutes)) {
+        alert("Sorry, that time was just booked by someone else. Please pick another slot.");
+        window.location.href = "booking.html";
+        return;
+    }
+
+    let saved = addBooking(Object.assign({}, booking, {
+        payment: payment.value,
+        paymentRef: refValue,
+        paymentStatus: "Pending verification",
+        name: fullName.value.trim(),
+        mobile: mobile.value.trim(),
+        email: email.value.trim()
+    }));
+
+    alert(
+
+        "Booking confirmed!\n\n" +
+
+        "Reference code: " + saved.code + "\n\n" +
+
+        "Name: " + fullName.value.trim() +
+        "\nMobile: " + mobile.value.trim() +
+        "\nEmail: " + email.value.trim() + "\n\n" +
+
+        "Court: " +
+        booking.court +
+
+        "\nDate: " +
+        document.getElementById("date").textContent +
+
+        "\nTime: " +
+        booking.startTime +
+        " - " +
+        booking.endTime +
+
+        "\nAdd-ons: " +
+        (booking.addonLabel && booking.addonLabel !== "None"
+            ? booking.addonLabel + " (+₱" + booking.addonTotal + ")"
+            : "None") +
+
+        (booking.notes && booking.notes.trim() !== ""
+            ? "\nSpecial Requests: " + booking.notes
+            : "") +
+
+        "\nPayment: " +
+        payment.value + " (pending verification)" +
+
+        "\nTotal: ₱" +
+        booking.total
+
+    );
+
+    localStorage.removeItem("dinkBoxBooking");
+    clearBookingTimer();
+    window.location.href = "track.html?code=" + saved.code;
+
+}
+
+</script>
+
+</body>
+
+</html>

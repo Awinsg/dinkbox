@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dink Box | Create Account</title>
+
+<link rel="stylesheet" href="login.css">
+
+<link rel="stylesheet" href="responsive.css">
+
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="logo">DINK BOX</a>
+
+<nav>
+
+    <a href="courts.html">Courts</a>
+
+    <a href="schedule.html">Schedule</a>
+
+    <a href="track.html">View Booking</a>
+
+    <a href="about.html">About</a>
+
+    <a href="login.html">Login</a>
+
+</nav>
+
+</header>
+
+<div class="login-container">
+
+<h1>CREATE ACCOUNT</h1>
+
+<form onsubmit="signup(event)" novalidate>
+
+<label for="fullName">Full name</label>
+<input type="text" id="fullName" placeholder="Juan Dela Cruz" autocomplete="name">
+
+<label for="mobile">Mobile number</label>
+<input type="tel" id="mobile" placeholder="09XXXXXXXXX" maxlength="11" inputmode="numeric" autocomplete="tel">
+
+<label for="email">Email</label>
+<input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+
+<label for="password">Password</label>
+<input type="password" id="password" placeholder="At least 8 characters" autocomplete="new-password">
+
+<label for="confirm">Confirm password</label>
+<input type="password" id="confirm" placeholder="Re-enter your password" autocomplete="new-password">
+
+<p class="form-error" id="signupError" role="alert"></p>
+
+<button type="submit" class="login-button">CREATE ACCOUNT</button>
+
+</form>
+
+<div class="signup">
+
+<p>
+Already have an account?
+<a href="login.html">Login</a>
+</p>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>© 2026 Dink Box. All rights reserved.</p>
+
+</footer>
+
+<script src="bookings.js"></script>
+<script src="auth.js"></script>
+
+<script>
+
+if (getCurrentUser()) {
+    window.location.href = "index.html";
+}
+
+document.getElementById("mobile").addEventListener("input", function() {
+    this.value = this.value.replace(/\D/g, "");
+});
+
+async function signup(event) {
+
+    event.preventDefault();
+
+    let name = document.getElementById("fullName");
+    let mobile = document.getElementById("mobile");
+    let email = document.getElementById("email");
+    let password = document.getElementById("password");
+    let confirm = document.getElementById("confirm");
+    let error = document.getElementById("signupError");
+
+    error.textContent = "";
+
+    let problems = [
+        [name,     name.value.trim().length < 2,                           "Enter your full name."],
+        [mobile,   !/^09\d{9}$/.test(mobile.value.trim()),                 "Enter an 11-digit mobile number starting with 09."],
+        [email,    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()), "Enter a valid email address."],
+        [password, password.value.length < 8,                              "Password must be at least 8 characters."],
+        [confirm,  confirm.value !== password.value,                       "Passwords don't match."]
+    ];
+
+    for (let i = 0; i < problems.length; i++) {
+        if (problems[i][1]) {
+            error.textContent = problems[i][2];
+            problems[i][0].focus();
+            return;
+        }
+    }
+
+    let result = await registerUser(name.value, mobile.value, email.value, password.value);
+
+    if (!result.ok) {
+        error.textContent = result.message;
+        email.focus();
+        return;
+    }
+
+    window.location.href = "index.html";
+}
+
+</script>
+
+<script src="reset-timer.js"></script>
+
+</body>
+
+</html>

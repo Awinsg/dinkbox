@@ -1,0 +1,231 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #173f35;
+}
+
+header {
+    height: 70px;
+    background-color: #173f35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #d7f34a;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
+nav a:hover {
+    color: #d7f34a;
+}
+
+.page-title {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+.page-title h1 {
+    font-size: 40px;
+    margin: 0 0 10px;
+}
+
+.page-title p {
+    color: #666;
+}
+
+.about-box {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    background-color: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.about-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.about-box h2 {
+    color: #173f35;
+    margin-top: 25px;
+}
+
+.about-box p {
+    color: #555;
+    line-height: 1.7;
+}
+
+.mission {
+    margin-top: 30px;
+    padding: 25px;
+    background-color: #edf5e0;
+    border-radius: 10px;
+}
+
+.mission h2 {
+    margin-top: 0;
+}
+
+footer {
+    background-color: #173f35;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 60px;
+}
+
+
+.about-box + .about-box {
+    margin-top: 30px;
+}
+
+figure {
+    margin: 0;
+}
+
+figcaption {
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+    margin: -18px 0 20px;
+}
+
+.fun-fact-aside {
+    margin-top: 30px;
+    padding: 20px 25px;
+    background-color: #edf5e0;
+    background-image: url('pickleball.png');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 42px;
+    border: 4px solid transparent;
+    border-image: linear-gradient(135deg, #173f35, #d7f34a) 1;
+    border-radius: 10px;
+}
+
+.fun-fact-aside h3 {
+    margin: 0 0 10px;
+    color: #173f35;
+}
+
+ruby {
+    ruby-position: over;
+}
+
+rt {
+    font-size: 11px;
+    color: #28720f;
+}
+
+.contact-box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #173f35;
+}
+
+.contact-box input[type="text"],
+.contact-box input[type="email"],
+.contact-box textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.contact-box textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.contact-box input:focus,
+.contact-box textarea:focus {
+    outline: 3px solid #d7f34a;
+    border-color: #173f35;
+}
+
+.contact-box .send-button {
+    padding: 12px 25px;
+    background-color: #173f35;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.contact-box .send-button:hover {
+    background-color: #24594c;
+}
+
+.contact-box .mailto-note {
+    font-size: 13px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.contact-box .mailto-note a {
+    color: #173f35;
+    font-weight: bold;
+}
+
+.pdf-section embed,
+.pdf-section iframe {
+    width: 100%;
+    height: 420px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.pdf-section .pdf-download {
+    display: inline-block;
+    margin-top: 15px;
+    color: #173f35;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pdf-section .pdf-download:hover {
+    color: #28720f;
+}
+
+.map-section iframe {
+    width: 100%;
+    height: 300px;
+    border: 0;
+    border-radius: 10px;
+}
